@@ -1,9 +1,11 @@
 # Chip Factory Game 🎮
 
-An interactive web-based game that teaches you how computer chips are made, one layer at a time! Built with pure HTML5, CSS, and JavaScript - no dependencies required.
+An educational game that simulates semiconductor manufacturing through an engaging puzzle experience! Learn how modern computer chips are built while having fun.
 
 **Created by:** Harsh Meena (harshmiitk@gmail.com)  
 **Copyright:** © 2025 Harsh Meena. All rights reserved.
+
+🎮 [Play the Game](https://meanharsh.github.io/chip-factory-game/src/)
 
 This project is protected by copyright law. While it's open source under the MIT license, you must follow these guidelines:
 1. Always give credit to the original author (Harsh Meena)
@@ -13,54 +15,70 @@ This project is protected by copyright law. While it's open source under the MIT
 
 ## 🤔 What is this?
 
-Ever wondered how your phone's brain is built? Chip Factory is a Tetris-inspired game that simulates the fascinating process of semiconductor manufacturing. Players build different types of computer chips by carefully placing layers in the right positions, just like in a real semiconductor factory!
+In the world of modern technology, semiconductors are the building blocks of everything from smartphones to cars. This game transforms the complex process of chip manufacturing into an engaging puzzle game where players learn about:
+
+- Layer-by-layer semiconductor fabrication
+- Different types of computer chips and their purposes
+- Real semiconductor manufacturing concepts
+- The intricate process of building electronic components
+
+### 🎯 Educational Goals
+
+1. **Learn Manufacturing Steps**: Understanding how chips are built layer by layer
+2. **Explore Chip Types**: Discover different kinds of chips and their uses
+3. **Industry Insights**: Gain knowledge about real semiconductor manufacturing
+4. **Engineering Concepts**: Learn about electronic components and their functions
 
 ## ✨ Features
 
-- 🔌 Build three types of chips: Transistors, Memory Cells, and Power Managers
-- 🎯 Learn real semiconductor manufacturing concepts while playing
-- 💡 Discover interesting facts about computer chip manufacturing
-- 🏆 Score points for perfect layer placements
-- 📱 Responsive design that works on both desktop and mobile
-- 🎨 Beautiful, modern UI with smooth animations
+- 🔌 Build three types of chips:
+  - **Transistors**: The fundamental building blocks of computing
+  - **Memory Cells**: Store and manage data
+  - **Power Managers**: Control energy distribution
+- 🎯 Interactive learning through gameplay
+- 💡 Real semiconductor manufacturing facts
+- 🏆 Scoring system with perfect placement bonuses
+- 📱 Responsive design for various devices
+- 🎨 Modern UI with intuitive controls
 
 ## 🎮 How to Play
 
-1. Choose your chip type (Transistor, Memory, or Power)
-2. Watch the blueprint on the right to see where layers should go
-3. Use arrow keys to move pieces:
-   - ←/→ to move left/right
-   - ↓ to drop faster
-   - Space for instant drop
-   - P to pause
-4. Match the layer pattern exactly for bonus points!
-5. Complete all layers to build a working chip
+1. **Choose Your Chip**
+   - Select from Transistor, Memory, or Power chip types
+   - Each type has unique patterns and challenges
+
+2. **Watch the Blueprint**
+   - Study the pattern shown on the right
+   - Plan your moves to match the required layers
+
+3. **Controls**
+   - ←/→ Arrow keys to move pieces
+   - ↓ Arrow key to drop faster
+   - Space bar for instant drop
+   - P key to pause the game
+
+4. **Scoring**
+   - Match patterns exactly for bonus points
+   - Build complete chips for major score boosts
+   - Track your perfect placements
 
 ## 🛠️ Technology
 
-Built with vanilla web technologies:
-- HTML5 Canvas for smooth graphics
-- Pure CSS for modern UI
+Built with modern web technologies:
+- HTML5 Canvas for smooth graphics rendering
+- Pure CSS for responsive styling
 - Vanilla JavaScript for game logic
-- No external dependencies!
+- No external dependencies for maximum performance
 
-## 🎓 Educational Value
+## 💻 Local Development
 
-While playing, you'll learn about:
-- Semiconductor manufacturing processes
-- Different types of computer chips
-- Layer-by-layer chip construction
-- Real-world chip manufacturing facts
-
-## 🚀 Local Development
-
-1. Clone the repository
+1. Clone the repository:
 ```bash
 git clone https://github.com/meanharsh/chip-factory-game.git
 cd chip-factory-game
 ```
 
-2. Open the game in your browser
+2. Serve the files:
 ```bash
 # Using Python's built-in server
 python -m http.server 8000
@@ -68,12 +86,31 @@ python -m http.server 8000
 npx http-server
 ```
 
-3. Visit `http://localhost:8000` in your browser
+3. Open in your browser:
+   - Visit `http://localhost:8000/src/`
+   - Start building chips!
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+Want to help improve the game? Great! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+Read our [Contributing Guidelines](CONTRIBUTING.md) for more details.
+
+## 📚 Resources
+
+Want to learn more about semiconductor manufacturing? Check out these resources:
+- [How Semiconductors Work](https://science.howstuffworks.com/semiconductor.htm)
+- [Introduction to Transistors](https://learn.sparkfun.com/tutorials/transistors)
+- [Chip Manufacturing Process](https://www.intel.com/content/www/us/en/silicon-innovations/semiconductor-manufacturing-process.html)
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License with additional terms - see the [LICENSE](LICENSE) file for details.
+
+---
+
+Made with 💙 by Harsh Meena
