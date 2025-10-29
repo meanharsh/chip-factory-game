@@ -56,7 +56,7 @@ While playing, you'll learn about:
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/chip-factory-game.git
+git clone https://github.com/meanharsh/chip-factory-game.git
 cd chip-factory-game
 ```
 
