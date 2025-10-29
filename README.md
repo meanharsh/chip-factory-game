@@ -2,6 +2,15 @@
 
 An interactive web-based game that teaches you how computer chips are made, one layer at a time! Built with pure HTML5, CSS, and JavaScript - no dependencies required.
 
+**Created by:** Harsh Meena (harshmiitk@gmail.com)  
+**Copyright:** © 2025 Harsh Meena. All rights reserved.
+
+This project is protected by copyright law. While it's open source under the MIT license, you must follow these guidelines:
+1. Always give credit to the original author (Harsh Meena)
+2. Include a link to the original repository
+3. Maintain the copyright notices in all copies
+4. Clearly mark any modifications you make
+
 ## 🤔 What is this?
 
 Ever wondered how your phone's brain is built? Chip Factory is a Tetris-inspired game that simulates the fascinating process of semiconductor manufacturing. Players build different types of computer chips by carefully placing layers in the right positions, just like in a real semiconductor factory!
