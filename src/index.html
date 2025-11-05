@@ -677,6 +677,7 @@
                             [1,1,1,0,0,1,1,1],
                             [1,1,1,0,0,1,1,1]
                         ],
+                        spawnAngles: [0, 180],
                         description: 'Tungsten plugs and copper lines carry signals out.',
                         fact: 'Dual-damascene copper routes billions of connections.'
                     }
@@ -906,13 +907,15 @@
                 const layer = device.layers[this.currentLayerIndex];
                 const spawnY = 0;
 
-                // Always spawn the piece rotated so players must re-orient it
+                // Determine spawn rotation options (default to quarter turns)
+                const rotationOptions = layer.spawnAngles && layer.spawnAngles.length
+                    ? layer.spawnAngles
+                    : [90, 270];
+                const forcedRotation = rotationOptions[Math.floor(Math.random() * rotationOptions.length)];
+
                 const originalPattern = JSON.parse(JSON.stringify(layer.pattern));
-                const rotations = [90, 270];
-                const forcedRotation = rotations[Math.floor(Math.random() * rotations.length)];
-                
                 let rotatedPattern = originalPattern;
-                for (let step = 0; step < forcedRotation / 90; step++) {
+                for (let step = 0; step < (forcedRotation / 90); step++) {
                     rotatedPattern = this.rotateMatrix(rotatedPattern);
                 }
 
