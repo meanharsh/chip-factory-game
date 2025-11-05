@@ -613,125 +613,176 @@
         
         const SUCCESS_MESSAGES = {
             transistor: [
-                "This switch will process millions of calculations in smartphones!",
-                "Your transistor could control data in gaming consoles!",
-                "Perfect for car safety systems!"
+                "You just fabricated the logic switch that steers a jet engine controller!",
+                "That transistor now routes signals inside a PlayStation-class graphics chip!",
+                "Your switch balances power rails in a self-driving car computer!"
             ],
             memory: [
-                "This memory cell could store your photos!",
-                "Perfect for game saves!",
-                "Great for medical device data storage!"
+                "You just built the DRAM stack buffering photos on an iPhone!",
+                "These memory cells cache telemetry inside a weather satellite!",
+                "Your memory die keeps patient scans ready inside an MRI workstation!"
             ],
             power: [
-                "This will make batteries last all day!",
-                "Perfect for laptop power optimization!",
-                "Great for IoT sensors!"
+                "You just assembled the power chip that keeps a long-range drone aloft!",
+                "This regulator now balances the battery pack of an electric vehicle!",
+                "Your PMIC stabilizes the supply inside a wearable heart monitor!"
             ]
         };
         
         const DEVICES = {
             transistor: {
-                name: 'Electronic Switch',
+                name: 'Logic Switch',
                 icon: '⚡',
-                blueprintExplanation: 'Stack layers to build an on/off switch for computers!',
+                blueprintExplanation: 'Assemble the transistor front-end: wafer, isolation, gate stack, and copper contacts.',
                 layers: [
                     {
-                        name: 'Silicon Base',
+                        name: 'Silicon Wafer',
                         color: '#6366F1',
                         pattern: [
-                            [1,1,1,1,1,1],
-                            [1,1,1,1,1,1],
-                            [1,1,1,1,1,1]
+                            [1,1,1,1,1,1,1,1],
+                            [1,1,1,1,1,1,1,1],
+                            [1,1,1,1,1,1,1,1],
+                            [1,1,1,1,1,1,1,1]
                         ],
-                        description: 'Foundation layer made from sand',
-                        fact: 'Silicon comes from beach sand!'
+                        description: 'Polished 300 mm silicon forms the base die.',
+                        fact: 'One wafer can hold over 5,000 logic chips.'
                     },
                     {
-                        name: 'Electric Paths',
+                        name: 'Isolation Wells',
                         color: '#F59E0B',
                         pattern: [
-                            [1,1,0,0,1,1],
-                            [1,0,0,0,0,1],
-                            [1,0,0,0,0,1]
+                            [1,1,0,0,0,0,1,1],
+                            [1,0,0,0,0,0,0,1],
+                            [1,0,0,0,0,0,0,1],
+                            [1,1,0,0,0,0,1,1]
                         ],
-                        description: 'Creates roads for electricity',
-                        fact: '10,000x thinner than human hair!'
+                        description: 'Shallow trenches keep neighboring devices electrically separate.',
+                        fact: 'Silicon dioxide fills the trenches to block leakage current.'
                     },
                     {
-                        name: 'Control Gate',
+                        name: 'Gate Stack',
                         color: '#EF4444',
                         pattern: [
-                            [0,0,1,1,0,0],
-                            [0,1,1,1,1,0]
+                            [0,0,1,1,1,1,0,0],
+                            [0,1,1,1,1,1,1,0],
+                            [0,1,1,1,1,1,1,0]
                         ],
-                        description: 'The actual on/off switch',
-                        fact: 'Switches 5 billion times per second!'
+                        description: 'High-k dielectrics and polysilicon control the channel.',
+                        fact: 'Gate oxides are thinner than a strand of DNA.'
+                    },
+                    {
+                        name: 'Metal Contacts',
+                        color: '#22D3EE',
+                        pattern: [
+                            [0,1,0,0,0,0,1,0],
+                            [1,1,1,0,1,1,1,1],
+                            [0,1,0,0,0,0,1,0]
+                        ],
+                        description: 'Tungsten plugs and copper lines carry signals out.',
+                        fact: 'Dual-damascene copper routes billions of connections.'
                     }
                 ]
             },
             memory: {
-                name: 'Memory Cell',
+                name: 'Memory Stack',
                 icon: '💾',
-                blueprintExplanation: 'Build a tiny storage unit for data!',
+                blueprintExplanation: 'Build a DRAM cell: substrate, isolation grid, capacitor array, and bond pads.',
                 layers: [
                     {
-                        name: 'Storage Base',
+                        name: 'Silicon Substrate',
                         color: '#8B5CF6',
                         pattern: [
-                            [1,1,1,1,1],
-                            [1,0,0,0,1],
-                            [1,1,1,1,1]
+                            [1,1,1,1,1,1,1,1],
+                            [1,1,1,1,1,1,1,1],
+                            [1,1,1,1,1,1,1,1],
+                            [1,1,1,1,1,1,1,1]
                         ],
-                        description: 'Creates storage space',
-                        fact: 'Stores one bit - a 0 or 1!'
+                        description: 'Lightly doped silicon hosts the memory array.',
+                        fact: 'DRAM starts with p-type wells etched into the wafer.'
                     },
                     {
-                        name: 'Memory Gate',
+                        name: 'Isolation Grid',
                         color: '#EC4899',
                         pattern: [
-                            [0,1,0,1,0],
-                            [1,1,1,1,1]
+                            [1,0,1,0,1,0,1,0],
+                            [1,0,1,0,1,0,1,0],
+                            [1,0,1,0,1,0,1,0],
+                            [1,1,1,1,1,1,1,1]
                         ],
-                        description: 'Controls data access',
-                        fact: 'Opens millions of times per second!'
+                        description: 'Word-line trenches stop cells from sharing charge.',
+                        fact: 'Shallow trench isolation lets billions of bits stay independent.'
                     },
                     {
-                        name: 'Data Keeper',
+                        name: 'Capacitor Array',
                         color: '#06B6D4',
                         pattern: [
-                            [1,0,1,0,1],
-                            [0,1,0,1,0]
+                            [0,1,1,0,1,1,0,1],
+                            [1,1,1,1,1,1,1,1],
+                            [0,1,1,0,1,1,0,1]
                         ],
-                        description: 'Holds your data safely',
-                        fact: 'Works like a tiny magnet!'
+                        description: 'Stacked capacitors store the 0s and 1s.',
+                        fact: 'Each DRAM cell holds roughly 30 femtofarads of charge.'
+                    },
+                    {
+                        name: 'Bond Pads',
+                        color: '#F97316',
+                        pattern: [
+                            [1,0,0,1,0,0,1,0],
+                            [0,1,1,0,1,1,0,1]
+                        ],
+                        description: 'Top metal pads connect the die to the package.',
+                        fact: 'Gold or copper wires stitch pads to the substrate leads.'
                     }
                 ]
             },
             power: {
                 name: 'Power Manager',
                 icon: '🔋',
-                blueprintExplanation: 'Create a smart battery controller!',
+                blueprintExplanation: 'Package a power IC: thick substrate, copper planes, FET array, and solder bumps.',
                 layers: [
                     {
-                        name: 'Power Input',
+                        name: 'Power Substrate',
                         color: '#DC2626',
                         pattern: [
-                            [1,1,1,1,1,1,1],
-                            [1,0,0,1,0,0,1],
-                            [1,1,1,1,1,1,1]
+                            [1,1,1,1,1,1,1,1],
+                            [1,1,1,1,1,1,1,1],
+                            [1,1,1,1,1,1,1,1],
+                            [1,1,1,1,1,1,1,1]
                         ],
-                        description: 'Receives battery power',
-                        fact: 'Uses less power than an LED!'
+                        description: 'Thick epitaxial silicon spreads heat from the die.',
+                        fact: 'Power devices use low-resistance silicon to handle high currents.'
                     },
                     {
-                        name: 'Voltage Control',
+                        name: 'Copper Planes',
+                        color: '#F59E0B',
+                        pattern: [
+                            [1,0,0,1,0,0,1,0],
+                            [1,0,0,1,0,0,1,0],
+                            [1,1,1,1,1,1,1,1],
+                            [1,0,0,1,0,0,1,0]
+                        ],
+                        description: 'Wide copper planes distribute battery power evenly.',
+                        fact: 'Redistribution layers are electroplated just microns thick.'
+                    },
+                    {
+                        name: 'Control FET Array',
                         color: '#7C3AED',
                         pattern: [
-                            [0,1,0,1,0,1,0],
-                            [1,1,1,1,1,1,1]
+                            [0,1,1,0,1,1,0,1],
+                            [1,1,1,1,1,1,1,1],
+                            [0,1,1,0,1,1,0,1]
                         ],
-                        description: 'Adjusts power levels',
-                        fact: 'Changes voltage 1000 times per second!'
+                        description: 'Synchronous MOSFETs regulate voltage to each rail.',
+                        fact: 'Modern PMICs can switch hundreds of thousands of times per second.'
+                    },
+                    {
+                        name: 'Solder Bumps',
+                        color: '#A855F7',
+                        pattern: [
+                            [1,0,1,0,1,0,1,0]
+                        ],
+                        description: 'Flip-chip bumps tie the die into the circuit board.',
+                        fact: 'Lead-free solder spheres form ball grid arrays for power chips.'
                     }
                 ]
             }
@@ -854,20 +905,29 @@
                 }
                 
                 const layer = device.layers[this.currentLayerIndex];
-                // Align piece horizontally to the blueprint center by default
-                // Spawn pieces exactly centered like the target pattern
-                const defaultX = Math.floor((GAME_CONFIG.COLS - layer.pattern[0].length) / 2);
                 const spawnY = 0;
 
+                // Always spawn the piece rotated so players must re-orient it
+                const originalPattern = JSON.parse(JSON.stringify(layer.pattern));
+                const rotations = [90, 270];
+                const forcedRotation = rotations[Math.floor(Math.random() * rotations.length)];
+                
+                let rotatedPattern = originalPattern;
+                for (let step = 0; step < forcedRotation / 90; step++) {
+                    rotatedPattern = this.rotateMatrix(rotatedPattern);
+                }
+
+                const defaultX = Math.floor((GAME_CONFIG.COLS - rotatedPattern[0].length) / 2);
+
                 this.currentPiece = {
-                    pattern: JSON.parse(JSON.stringify(layer.pattern)),
+                    pattern: rotatedPattern,
                     color: layer.color,
                     layerIndex: this.currentLayerIndex,
                     x: defaultX,
                     y: spawnY,
-                    rotation: 0
+                    rotation: forcedRotation % 360
                 };
-                
+
                 // Check for game over
                 if (this.checkCollision(this.currentPiece)) {
                     this.gameOver();
