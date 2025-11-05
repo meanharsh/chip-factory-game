@@ -1,11 +1,7 @@
 <!--
-    Chip Factory Game
+    Chip Factory Game - Fixed Version
     Copyright (c) 2025 Harsh Meena (harshmiitk@gmail.com)
     All rights reserved.
-    
-    This game is protected by copyright law and international treaties.
-    Unauthorized reproduction or distribution of this game or any portion of it
-    may result in severe civil and criminal penalties.
     
     GitHub: https://github.com/meanharsh/chip-factory-game
 -->
@@ -26,8 +22,8 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #000000;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
             color: #ffffff;
             overflow: hidden;
             height: 100vh;
@@ -44,7 +40,7 @@
             max-width: 1400px;
             width: 100%;
             height: 100vh;
-            max-height: 800px;
+            max-height: 900px;
         }
         
         /* Left Panel - Game */
@@ -65,6 +61,10 @@
             font-size: 24px;
             font-weight: 600;
             letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .tutorial-btn {
@@ -80,13 +80,14 @@
         
         .tutorial-btn:hover {
             background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
         }
         
         canvas {
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             background: #0a0a0a;
+            border: 2px solid rgba(102, 126, 234, 0.2);
         }
         
         #score-bar {
@@ -147,14 +148,15 @@
             font-weight: 500;
         }
         
-        .device-btn:hover {
+        .device-btn:hover:not(.active) {
             color: #ffffff;
             background: rgba(255, 255, 255, 0.05);
         }
         
         .device-btn.active {
-            background: #ffffff;
-            color: #000000;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            cursor: default;
         }
         
         .progress-container {
@@ -190,7 +192,7 @@
         
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #007AFF, #5AC8FA);
+            background: linear-gradient(90deg, #667eea, #764ba2);
             border-radius: 4px;
             transition: width 0.3s ease;
         }
@@ -205,7 +207,10 @@
             font-size: 16px;
             font-weight: 500;
             margin-bottom: 8px;
-            color: #5AC8FA;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .layer-description {
@@ -222,7 +227,7 @@
             padding: 12px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
-            border-left: 3px solid #5AC8FA;
+            border-left: 3px solid #667eea;
         }
         
         .controls {
@@ -288,6 +293,16 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
+        .blueprint-explanation {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
         .layer-list {
             margin-top: 16px;
         }
@@ -303,7 +318,7 @@
         }
         
         .layer-item.active {
-            color: #5AC8FA;
+            color: #667eea;
             font-weight: 500;
         }
         
@@ -315,30 +330,80 @@
         }
         
         .layer-item.active .layer-indicator {
-            background: #5AC8FA;
-            box-shadow: 0 0 8px rgba(90, 200, 250, 0.5);
+            background: #667eea;
+            box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
         }
         
         .layer-item.completed .layer-indicator {
             background: #34C759;
         }
         
-        /* Floating elements */
+        /* Popups */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.95), rgba(118, 75, 162, 0.95));
+            border-radius: 16px;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+        
+        .popup.active {
+            display: block;
+        }
+        
+        .popup h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .popup p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            max-width: 400px;
+        }
+        
+        .popup button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .popup button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .popup-detail {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 8px;
+        }
+        
         .bonus-popup {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 48px;
+            font-size: 36px;
             font-weight: 700;
             background: linear-gradient(135deg, #FFD60A, #FFC500);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 4px 20px rgba(255, 214, 10, 0.5);
             pointer-events: none;
             opacity: 0;
             white-space: nowrap;
+            z-index: 999;
         }
         
         .bonus-active {
@@ -360,55 +425,15 @@
             }
         }
         
-        .tutorial-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
+        @keyframes shortCircuit {
+            0%, 100% { background: #0a0a0a; }
+            25% { background: rgba(255, 0, 0, 0.2); }
+            50% { background: #0a0a0a; }
+            75% { background: rgba(255, 0, 0, 0.1); }
         }
         
-        .tutorial-content {
-            background: #1a1a1a;
-            border-radius: 16px;
-            padding: 40px;
-            max-width: 600px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .tutorial-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        
-        .tutorial-text {
-            font-size: 16px;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 30px;
-        }
-        
-        .tutorial-next {
-            background: #007AFF;
-            color: white;
-            border: none;
-            padding: 12px 32px;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .tutorial-next:hover {
-            background: #0051D5;
-            transform: translateY(-1px);
+        .short-circuit {
+            animation: shortCircuit 0.5s ease-out;
         }
         
         .restart-btn {
@@ -421,11 +446,32 @@
             cursor: pointer;
             transition: all 0.2s;
             margin-top: 16px;
+            width: 100%;
         }
         
         .restart-btn:hover {
-            border-color: rgba(255, 255, 255, 0.4);
+            border-color: rgba(102, 126, 234, 0.5);
             color: #ffffff;
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        /* Debug Panel (hidden by default) */
+        .debug-panel {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #667eea;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 11px;
+            font-family: monospace;
+            display: none;
+            max-width: 300px;
+        }
+        
+        .debug-panel.active {
+            display: block;
         }
     </style>
 </head>
@@ -434,8 +480,8 @@
         <!-- Left: Game -->
         <div id="game-section">
             <div id="game-header">
-                <h1>Chip Factory</h1>
-                <button class="tutorial-btn" onclick="showTutorial()">Tutorial</button>
+                <h1>🔬 Chip Factory</h1>
+                <button class="tutorial-btn" onclick="game.showTutorial()">📖 How to Play</button>
             </div>
             <canvas id="gameCanvas" width="300" height="600"></canvas>
             <div id="score-bar">
@@ -444,7 +490,7 @@
                     <div class="score-value" id="score">0</div>
                 </div>
                 <div class="score-item">
-                    <div class="score-label">Chips Built</div>
+                    <div class="score-label">Chips</div>
                     <div class="score-value" id="devices">0</div>
                 </div>
                 <div class="score-item">
@@ -457,9 +503,9 @@
         <!-- Middle: Info -->
         <div id="info-section">
             <div class="device-selector">
-                <button class="device-btn active" onclick="selectDevice('transistor')">Switch</button>
-                <button class="device-btn" onclick="selectDevice('memory')">Memory</button>
-                <button class="device-btn" onclick="selectDevice('power')">Power</button>
+                <button class="device-btn active" data-device="transistor" onclick="game.selectDevice('transistor')">⚡ Switch</button>
+                <button class="device-btn" data-device="memory" onclick="game.selectDevice('memory')">💾 Memory</button>
+                <button class="device-btn" data-device="power" onclick="game.selectDevice('power')">🔋 Power</button>
             </div>
             
             <div class="progress-container">
@@ -473,93 +519,132 @@
             </div>
             
             <div class="layer-info">
-                <div class="layer-current" id="current-layer">Starting Layer</div>
+                <div class="layer-current" id="current-layer">Get Ready!</div>
                 <div class="layer-description" id="layer-description">
-                    Get ready to build your first chip!
+                    Position pieces to match the pattern on the right
                 </div>
                 <div class="layer-fact" id="layer-fact">
-                    💡 Chips power everything from your phone to your car!
+                    💡 Modern chips have billions of transistors!
                 </div>
             </div>
             
             <div class="controls">
-                <div class="controls-title">How to Play</div>
+                <div class="controls-title">🎮 Controls</div>
                 <div class="control-row">
                     <span class="key">←</span>
                     <span class="key">→</span>
-                    <span>Move pieces</span>
+                    <span>Move</span>
+                </div>
+                <div class="control-row">
+                    <span class="key">↑</span>
+                    <span class="key">Z</span>
+                    <span>Rotate</span>
                 </div>
                 <div class="control-row">
                     <span class="key">↓</span>
-                    <span>Drop faster</span>
+                    <span>Faster</span>
                 </div>
                 <div class="control-row">
                     <span class="key">Space</span>
-                    <span>Instant drop</span>
+                    <span>Drop</span>
                 </div>
                 <div class="control-row">
                     <span class="key">P</span>
-                    <span>Pause game</span>
+                    <span>Pause</span>
                 </div>
             </div>
             
-            <button class="restart-btn" onclick="restartGame()">New Game</button>
+            <button class="restart-btn" onclick="game.restart()">🔄 New Game</button>
         </div>
         
         <!-- Right: Blueprint -->
         <div id="blueprint-section">
             <div class="blueprint-container">
-                <div class="blueprint-title">Build Pattern</div>
+                <div class="blueprint-title">🏗️ BUILD PATTERN</div>
                 <canvas id="blueprint-canvas" width="280" height="300"></canvas>
-                <div class="layer-list" id="layer-list">
-                    <!-- Layers will be added dynamically -->
+                <div class="blueprint-explanation" id="blueprint-explanation">
+                    Match this exact pattern! Wrong placement = short circuit!
                 </div>
+                <div class="layer-list" id="layer-list"></div>
             </div>
         </div>
     </div>
     
+    <!-- Popups -->
     <div id="bonus-indicator" class="bonus-popup"></div>
     
-    <div id="tutorial-overlay" class="tutorial-overlay">
-        <div class="tutorial-content">
-            <h2 class="tutorial-title" id="tutorial-title">Welcome to Chip Factory!</h2>
-            <p class="tutorial-text" id="tutorial-text">
-                Learn how computer chips are made by building them layer by layer, 
-                just like in a real semiconductor factory!
-            </p>
-            <button class="tutorial-next" onclick="nextTutorial()">Next</button>
-        </div>
+    <div id="success-popup" class="popup">
+        <h2>🎉 Chip Complete!</h2>
+        <p id="success-message">Your chip is ready!</p>
+        <button onclick="game.closeSuccessPopup()">Continue</button>
+    </div>
+    
+    <div id="failure-popup" class="popup">
+        <h2>⚡ Short Circuit!</h2>
+        <p>Wrong placement! The chip must be rebuilt.</p>
+        <p id="failure-details" class="popup-detail"></p>
+        <button onclick="game.closeFailurePopup()">Try Again</button>
+    </div>
+    
+    <div id="tutorial-popup" class="popup">
+        <h2>How to Play</h2>
+        <p>Stack colored blocks to match the pattern on the right. Each color is a different layer of the chip. Wrong placement causes a short circuit!</p>
+        <button onclick="game.closeTutorial()">Start Playing</button>
+    </div>
+    
+    <!-- Debug Panel (Press D to toggle) -->
+    <div id="debug-panel" class="debug-panel">
+        <div id="debug-info"></div>
     </div>
 
     <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const blueprintCanvas = document.getElementById('blueprint-canvas');
-        const bpCtx = blueprintCanvas.getContext('2d');
+        // Game Configuration and Data
+        const GAME_CONFIG = {
+            COLS: 10,
+            ROWS: 20,
+            BLOCK_SIZE: 30,
+            DROP_SPEED_BASE: 800,
+            DROP_SPEED_MIN: 100,
+            SCORE_BONUS_PERFECT: 500,
+            SCORE_BONUS_NORMAL: 100,
+            SCORE_BONUS_CHIP: 2000,
+            SCORE_HARD_DROP: 2
+        };
         
-        const COLS = 10;
-        const ROWS = 20;
-        const BLOCK_SIZE = 30;
+        const SUCCESS_MESSAGES = {
+            transistor: [
+                "This switch will process millions of calculations in smartphones!",
+                "Your transistor could control data in gaming consoles!",
+                "Perfect for car safety systems!"
+            ],
+            memory: [
+                "This memory cell could store your photos!",
+                "Perfect for game saves!",
+                "Great for medical device data storage!"
+            ],
+            power: [
+                "This will make batteries last all day!",
+                "Perfect for laptop power optimization!",
+                "Great for IoT sensors!"
+            ]
+        };
         
-        // Simplified devices with fun facts
         const DEVICES = {
             transistor: {
                 name: 'Electronic Switch',
-                icon: '🔌',
-                description: 'The basic on/off switch that powers all computing',
-                width: 6,
-                height: 8,
+                icon: '⚡',
+                blueprintExplanation: 'Stack layers to build an on/off switch for computers!',
                 layers: [
                     {
-                        name: 'Base Layer',
+                        name: 'Silicon Base',
                         color: '#6366F1',
                         pattern: [
                             [1,1,1,1,1,1],
                             [1,1,1,1,1,1],
                             [1,1,1,1,1,1]
                         ],
-                        description: 'Silicon foundation - like a pizza base',
-                        fact: 'Silicon comes from sand! Beach sand becomes computer chips.'
+                        description: 'Foundation layer made from sand',
+                        fact: 'Silicon comes from beach sand!'
                     },
                     {
                         name: 'Electric Paths',
@@ -569,18 +654,8 @@
                             [1,0,0,0,0,1],
                             [1,0,0,0,0,1]
                         ],
-                        description: 'Pathways for electricity to flow',
-                        fact: 'These paths are 10,000x thinner than human hair!'
-                    },
-                    {
-                        name: 'Insulation',
-                        color: '#3B82F6',
-                        pattern: [
-                            [0,0,1,1,0,0],
-                            [0,1,1,1,1,0]
-                        ],
-                        description: 'A super-thin wall that blocks electricity',
-                        fact: 'This layer is only 30 atoms thick - incredible precision!'
+                        description: 'Creates roads for electricity',
+                        fact: '10,000x thinner than human hair!'
                     },
                     {
                         name: 'Control Gate',
@@ -589,38 +664,15 @@
                             [0,0,1,1,0,0],
                             [0,1,1,1,1,0]
                         ],
-                        description: 'The switch that turns electricity on/off',
-                        fact: 'This switch can flip 5 billion times per second!'
-                    },
-                    {
-                        name: 'Metal Wires',
-                        color: '#9CA3AF',
-                        pattern: [
-                            [1,0,0,0,0,1],
-                            [0,1,0,0,1,0],
-                            [0,0,1,1,0,0]
-                        ],
-                        description: 'Tiny metal highways connecting everything',
-                        fact: 'A chip has millions of wires - like a tiny city!'
-                    },
-                    {
-                        name: 'Protection',
-                        color: '#10B981',
-                        pattern: [
-                            [1,1,1,1,1,1],
-                            [1,1,1,1,1,1]
-                        ],
-                        description: 'Protective shield keeping the chip safe',
-                        fact: 'This coating protects against dust particles and moisture.'
+                        description: 'The actual on/off switch',
+                        fact: 'Switches 5 billion times per second!'
                     }
                 ]
             },
             memory: {
                 name: 'Memory Cell',
                 icon: '💾',
-                description: 'Stores information like a tiny filing cabinet',
-                width: 5,
-                height: 7,
+                blueprintExplanation: 'Build a tiny storage unit for data!',
                 layers: [
                     {
                         name: 'Storage Base',
@@ -630,8 +682,8 @@
                             [1,0,0,0,1],
                             [1,1,1,1,1]
                         ],
-                        description: 'Foundation for storing data',
-                        fact: 'Each cell can store one bit - a 0 or 1!'
+                        description: 'Creates storage space',
+                        fact: 'Stores one bit - a 0 or 1!'
                     },
                     {
                         name: 'Memory Gate',
@@ -640,177 +692,204 @@
                             [0,1,0,1,0],
                             [1,1,1,1,1]
                         ],
-                        description: 'The door that opens to read/write data',
-                        fact: 'Opens and closes millions of times per second!'
+                        description: 'Controls data access',
+                        fact: 'Opens millions of times per second!'
                     },
                     {
                         name: 'Data Keeper',
                         color: '#06B6D4',
                         pattern: [
                             [1,0,1,0,1],
-                            [0,1,0,1,0],
-                            [1,0,1,0,1]
+                            [0,1,0,1,0]
                         ],
-                        description: 'Holds your data even when power is off',
-                        fact: 'Like a tiny magnet that remembers its position!'
-                    },
-                    {
-                        name: 'Connections',
-                        color: '#F59E0B',
-                        pattern: [
-                            [0,1,1,1,0],
-                            [1,0,0,0,1]
-                        ],
-                        description: 'Links to share data with the processor',
-                        fact: 'Data travels at nearly the speed of light here!'
-                    },
-                    {
-                        name: 'Shield',
-                        color: '#10B981',
-                        pattern: [
-                            [1,1,1,1,1],
-                            [1,1,1,1,1]
-                        ],
-                        description: 'Protects stored information',
-                        fact: 'Prevents data corruption from cosmic rays!'
+                        description: 'Holds your data safely',
+                        fact: 'Works like a tiny magnet!'
                     }
                 ]
             },
             power: {
                 name: 'Power Manager',
-                icon: '⚡',
-                description: 'Controls and distributes power efficiently',
-                width: 7,
-                height: 6,
+                icon: '🔋',
+                blueprintExplanation: 'Create a smart battery controller!',
                 layers: [
                     {
-                        name: 'Power Base',
+                        name: 'Power Input',
                         color: '#DC2626',
                         pattern: [
                             [1,1,1,1,1,1,1],
                             [1,0,0,1,0,0,1],
                             [1,1,1,1,1,1,1]
                         ],
-                        description: 'Receives power from the battery',
-                        fact: 'Modern chips use less power than a small LED!'
+                        description: 'Receives battery power',
+                        fact: 'Uses less power than an LED!'
                     },
                     {
                         name: 'Voltage Control',
                         color: '#7C3AED',
                         pattern: [
                             [0,1,0,1,0,1,0],
-                            [1,1,1,1,1,1,1],
-                            [0,1,0,1,0,1,0]
-                        ],
-                        description: 'Adjusts power like a volume knob',
-                        fact: 'Can change voltage 1000 times per second!'
-                    },
-                    {
-                        name: 'Distribution',
-                        color: '#2563EB',
-                        pattern: [
-                            [1,0,0,0,0,0,1],
-                            [0,1,0,0,0,1,0],
-                            [0,0,1,1,1,0,0]
-                        ],
-                        description: 'Sends power where it\'s needed',
-                        fact: 'Like a smart power grid for your chip!'
-                    },
-                    {
-                        name: 'Efficiency',
-                        color: '#059669',
-                        pattern: [
-                            [0,0,1,1,1,0,0],
-                            [0,1,0,0,0,1,0],
-                            [1,0,0,0,0,0,1]
-                        ],
-                        description: 'Makes sure no power is wasted',
-                        fact: 'Saves enough power to extend battery life by hours!'
-                    },
-                    {
-                        name: 'Protection',
-                        color: '#10B981',
-                        pattern: [
-                            [1,1,1,1,1,1,1],
                             [1,1,1,1,1,1,1]
                         ],
-                        description: 'Prevents power surges and damage',
-                        fact: 'Protects against voltage spikes in nanoseconds!'
+                        description: 'Adjusts power levels',
+                        fact: 'Changes voltage 1000 times per second!'
                     }
                 ]
             }
         };
         
-        const TUTORIAL_STEPS = [
-            {
-                title: "Welcome to Chip Factory!",
-                text: "Learn how computer chips are made by building them layer by layer, just like in a real semiconductor factory!"
-            },
-            {
-                title: "Follow the Blueprint",
-                text: "Look at the pattern on the right. Each colored layer needs to be placed in the right spot - just like stacking LEGO blocks!"
-            },
-            {
-                title: "Perfect Placement = Big Points!",
-                text: "When pieces glow green, they're perfectly aligned. Drop them there for bonus points!"
-            },
-            {
-                title: "Build Different Chips",
-                text: "Try building all three types: Switches (transistors), Memory cells, and Power managers. Each teaches you something new!"
-            },
-            {
-                title: "You're Ready!",
-                text: "Start building chips and discover fun facts about the technology inside every device you use. Good luck!"
-            }
-        ];
-        
-        let board = [];
-        let currentDevice = 'transistor';
-        let currentLayerIndex = 0;
-        let currentPiece = null;
-        let score = 0;
-        let devicesBuilt = 0;
-        let perfectPlacements = 0;
-        let isPaused = false;
-        let dropCounter = 0;
-        let lastTime = 0;
-        let deviceStartX = 3;
-        let deviceStartY = 14;
-        let tutorialStep = 0;
-        
-        class Piece {
+        // Game Class
+        class ChipFactoryGame {
             constructor() {
-                const device = DEVICES[currentDevice];
-                const layer = device.layers[currentLayerIndex];
-                this.pattern = layer.pattern;
-                this.color = layer.color;
-                this.name = layer.name;
-                this.x = deviceStartX;
-                this.y = 0;
-                this.targetY = deviceStartY + this.getLayerOffset();
+                this.canvas = document.getElementById('gameCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.blueprintCanvas = document.getElementById('blueprint-canvas');
+                this.bpCtx = this.blueprintCanvas.getContext('2d');
+                
+                this.board = [];
+                this.targetPattern = [];
+                this.currentDevice = 'transistor';
+                this.currentLayerIndex = 0;
+                this.currentPiece = null;
+                this.score = 0;
+                this.devicesBuilt = 0;
+                this.perfectPlacements = 0;
+                this.isPaused = false;
+                this.dropCounter = 0;
+                this.lastTime = 0;
+                this.debugMode = false;
+                this.lastPlacementStats = null;
+                
+                this.init();
+                this.gameLoop();
+                
+                // Event listeners
+                document.addEventListener('keydown', (e) => this.handleKeyPress(e));
+                
+                // Debug mode toggle
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'd' || e.key === 'D') {
+                        this.toggleDebug();
+                    }
+                });
             }
             
-            getLayerOffset() {
-                const device = DEVICES[currentDevice];
-                let offset = 0;
-                for (let i = 0; i < currentLayerIndex; i++) {
-                    offset += device.layers[i].pattern.length;
+            init() {
+                // Initialize empty board
+                this.board = Array(GAME_CONFIG.ROWS).fill().map(() => 
+                    Array(GAME_CONFIG.COLS).fill(null)
+                );
+                
+                // Reset game state
+                this.currentLayerIndex = 0;
+                this.isPaused = false;
+                this.lastPlacementStats = null;
+                
+                // Build target pattern for current device
+                this.buildTargetPattern();
+                
+                // Update UI
+                this.updateDeviceBlueprint();
+                this.updateLayerInfo();
+                this.updateProgress();
+                
+                // Spawn first piece
+                this.spawnPiece();
+            }
+            
+            buildTargetPattern() {
+                // Create the exact pattern we expect the player to build
+                this.targetPattern = Array(GAME_CONFIG.ROWS).fill().map(() => 
+                    Array(GAME_CONFIG.COLS).fill(null)
+                );
+                
+                const device = DEVICES[this.currentDevice];
+                
+                // Determine the widest layer so we can center everything consistently
+                const maxWidth = device.layers.reduce((widest, layer) => 
+                    Math.max(widest, layer.pattern[0].length), 0
+                );
+                const startX = Math.floor((GAME_CONFIG.COLS - maxWidth) / 2);
+
+                // Track where each layer should start vertically (top row index)
+                this.layerStartY = Array(device.layers.length).fill(0);
+
+                // Start from the bottom of the board and stack layers upward
+                let currentY = GAME_CONFIG.ROWS;
+                device.layers.forEach((layer, layerIndex) => {
+                    const layerHeight = layer.pattern.length;
+                    const layerTopY = currentY - layerHeight;
+                    const layerWidth = layer.pattern[0].length;
+                    const xOffset = startX + Math.floor((maxWidth - layerWidth) / 2);
+
+                    this.layerStartY[layerIndex] = layerTopY;
+
+                    layer.pattern.forEach((row, rowIndex) => {
+                        row.forEach((cell, colIndex) => {
+                            if (cell === 1) {
+                                const x = xOffset + colIndex;
+                                const y = layerTopY + rowIndex;
+                                if (x >= 0 && x < GAME_CONFIG.COLS && y >= 0 && y < GAME_CONFIG.ROWS) {
+                                    this.targetPattern[y][x] = {
+                                        color: layer.color,
+                                        layerIndex,
+                                        required: true
+                                    };
+                                }
+                            }
+                        });
+                    });
+
+                    currentY = layerTopY;
+                });
+
+                this.targetStartX = startX;
+                this.targetStartY = currentY;
+            }
+            
+            spawnPiece() {
+                const device = DEVICES[this.currentDevice];
+                if (this.currentLayerIndex >= device.layers.length) {
+                    this.completeDevice();
+                    return;
                 }
-                return offset;
+                
+                const layer = device.layers[this.currentLayerIndex];
+                // Align piece horizontally to the blueprint center by default
+                // Spawn pieces exactly centered like the target pattern
+                const defaultX = Math.floor((GAME_CONFIG.COLS - layer.pattern[0].length) / 2);
+                const spawnY = 0;
+
+                this.currentPiece = {
+                    pattern: JSON.parse(JSON.stringify(layer.pattern)),
+                    color: layer.color,
+                    layerIndex: this.currentLayerIndex,
+                    x: defaultX,
+                    y: spawnY,
+                    rotation: 0
+                };
+                
+                // Check for game over
+                if (this.checkCollision(this.currentPiece)) {
+                    this.gameOver();
+                }
             }
             
-            collides() {
-                for (let row = 0; row < this.pattern.length; row++) {
-                    for (let col = 0; col < this.pattern[row].length; col++) {
-                        if (this.pattern[row][col]) {
-                            const boardX = this.x + col;
-                            const boardY = this.y + row;
+            checkCollision(piece, offsetX = 0, offsetY = 0) {
+                // Standard Tetris-style collision check
+                for (let row = 0; row < piece.pattern.length; row++) {
+                    for (let col = 0; col < piece.pattern[row].length; col++) {
+                        if (piece.pattern[row][col] === 1) {
+                            const newX = piece.x + col + offsetX;
+                            const newY = piece.y + row + offsetY;
                             
-                            if (boardX < 0 || boardX >= COLS || boardY >= ROWS) {
+                            // Check boundaries
+                            if (newX < 0 || newX >= GAME_CONFIG.COLS || 
+                                newY >= GAME_CONFIG.ROWS) {
                                 return true;
                             }
                             
-                            if (boardY >= 0 && board[boardY][boardX]) {
+                            // Check board collision with any existing blocks
+                            if (newY >= 0 && this.board[newY][newX] !== null) {
                                 return true;
                             }
                         }
@@ -819,389 +898,712 @@
                 return false;
             }
             
-            isAligned() {
-                return this.x === deviceStartX && this.y === this.targetY;
-            }
-        }
-        
-        function initBoard() {
-            board = Array(ROWS).fill().map(() => Array(COLS).fill(0));
-            currentLayerIndex = 0;
-            updateDeviceBlueprint();
-            updateLayerInfo();
-        }
-        
-        function drawBlock(x, y, color, context = ctx, size = BLOCK_SIZE) {
-            const xPos = x * size;
-            const yPos = y * size;
-            const padding = 1;
-            
-            // Main block
-            context.fillStyle = color;
-            context.fillRect(xPos + padding, yPos + padding, size - padding * 2, size - padding * 2);
-            
-            // Subtle inner shadow
-            const gradient = context.createLinearGradient(xPos, yPos + size, xPos, yPos);
-            gradient.addColorStop(0, 'rgba(0, 0, 0, 0.2)');
-            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-            context.fillStyle = gradient;
-            context.fillRect(xPos + padding, yPos + padding, size - padding * 2, size - padding * 2);
-        }
-        
-        function draw() {
-            // Clear canvas
-            ctx.fillStyle = '#0a0a0a';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Subtle grid
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
-            ctx.lineWidth = 1;
-            for (let i = 0; i <= COLS; i++) {
-                ctx.beginPath();
-                ctx.moveTo(i * BLOCK_SIZE, 0);
-                ctx.lineTo(i * BLOCK_SIZE, canvas.height);
-                ctx.stroke();
-            }
-            for (let i = 0; i <= ROWS; i++) {
-                ctx.beginPath();
-                ctx.moveTo(0, i * BLOCK_SIZE);
-                ctx.lineTo(canvas.width, i * BLOCK_SIZE);
-                ctx.stroke();
-            }
-            
-            // Draw placement guide
-            if (currentPiece && !isPaused) {
-                ctx.fillStyle = 'rgba(90, 200, 250, 0.1)';
-                for (let row = 0; row < currentPiece.pattern.length; row++) {
-                    for (let col = 0; col < currentPiece.pattern[row].length; col++) {
-                        if (currentPiece.pattern[row][col]) {
-                            ctx.fillRect(
-                                (deviceStartX + col) * BLOCK_SIZE,
-                                (currentPiece.targetY + row) * BLOCK_SIZE,
-                                BLOCK_SIZE,
-                                BLOCK_SIZE
-                            );
+            rotatePiece() {
+                if (!this.currentPiece || this.isPaused) return;
+                
+                const oldPattern = this.currentPiece.pattern;
+                const rotated = this.rotateMatrix(oldPattern);
+                
+                this.currentPiece.pattern = rotated;
+                
+                // Try to fit the rotated piece
+                if (this.checkCollision(this.currentPiece)) {
+                    // Try wall kicks
+                    const kicks = [[0, 0], [-1, 0], [1, 0], [0, -1], [-2, 0], [2, 0]];
+                    let kicked = false;
+                    
+                    for (let [dx, dy] of kicks) {
+                        if (!this.checkCollision(this.currentPiece, dx, dy)) {
+                            this.currentPiece.x += dx;
+                            this.currentPiece.y += dy;
+                            kicked = true;
+                            break;
                         }
                     }
-                }
-            }
-            
-            // Draw board
-            for (let row = 0; row < ROWS; row++) {
-                for (let col = 0; col < COLS; col++) {
-                    if (board[row][col]) {
-                        drawBlock(col, row, board[row][col]);
-                    }
-                }
-            }
-            
-            // Draw current piece
-            if (currentPiece && !isPaused) {
-                for (let row = 0; row < currentPiece.pattern.length; row++) {
-                    for (let col = 0; col < currentPiece.pattern[row].length; col++) {
-                        if (currentPiece.pattern[row][col]) {
-                            drawBlock(
-                                currentPiece.x + col,
-                                currentPiece.y + row,
-                                currentPiece.color
-                            );
-                        }
+                    
+                    if (!kicked) {
+                        // Revert rotation
+                        this.currentPiece.pattern = oldPattern;
                     }
                 }
                 
-                // Perfect alignment glow
-                if (currentPiece.isAligned()) {
-                    ctx.strokeStyle = '#34C759';
-                    ctx.lineWidth = 2;
-                    ctx.strokeRect(
-                        currentPiece.x * BLOCK_SIZE,
-                        currentPiece.y * BLOCK_SIZE,
-                        currentPiece.pattern[0].length * BLOCK_SIZE,
-                        currentPiece.pattern.length * BLOCK_SIZE
-                    );
+                this.currentPiece.rotation = (this.currentPiece.rotation + 90) % 360;
+            }
+            
+            rotateMatrix(matrix) {
+                const rows = matrix.length;
+                const cols = matrix[0].length;
+                const rotated = Array(cols).fill().map(() => Array(rows).fill(0));
+                
+                for (let row = 0; row < rows; row++) {
+                    for (let col = 0; col < cols; col++) {
+                        rotated[col][rows - 1 - row] = matrix[row][col];
+                    }
+                }
+                
+                return rotated;
+            }
+            
+            movePiece(dx) {
+                if (!this.currentPiece || this.isPaused) return;
+                
+                if (!this.checkCollision(this.currentPiece, dx, 0)) {
+                    this.currentPiece.x += dx;
                 }
             }
-        }
-        
-        function updateDeviceBlueprint() {
-            const device = DEVICES[currentDevice];
             
-            // Clear blueprint
-            bpCtx.fillStyle = '#0a0a0a';
-            bpCtx.fillRect(0, 0, blueprintCanvas.width, blueprintCanvas.height);
+            dropPiece() {
+                if (!this.currentPiece || this.isPaused) return;
+                
+                if (!this.checkCollision(this.currentPiece, 0, 1)) {
+                    this.currentPiece.y++;
+                    this.dropCounter = 0;
+                    return true;
+                } else {
+                    this.lockPiece();
+                    return false;
+                }
+            }
             
-            // Calculate scale and position
-            let totalHeight = 0;
-            device.layers.forEach(layer => totalHeight += layer.pattern.length);
-            const scale = Math.min(25, (blueprintCanvas.height - 40) / totalHeight);
-            const xOffset = (blueprintCanvas.width - device.width * scale) / 2;
-            const startY = (blueprintCanvas.height - totalHeight * scale) / 2;
+            hardDrop() {
+                if (!this.currentPiece || this.isPaused) return;
+                
+                let drops = 0;
+                while (!this.checkCollision(this.currentPiece, 0, 1)) {
+                    this.currentPiece.y++;
+                    drops++;
+                }
+                
+                this.score += drops * GAME_CONFIG.SCORE_HARD_DROP;
+                this.updateScore();
+                this.lockPiece();
+            }
             
-            // Draw layers
-            let yOffset = startY;
-            device.layers.forEach((layer, index) => {
-                layer.pattern.forEach((row, rowIndex) => {
-                    row.forEach((cell, colIndex) => {
-                        if (cell) {
-                            const opacity = index <= currentLayerIndex ? 1 : 0.2;
-                            bpCtx.globalAlpha = opacity;
-                            drawBlock(
-                                xOffset / scale + colIndex,
-                                yOffset / scale + rowIndex,
-                                layer.color,
-                                bpCtx,
-                                scale
-                            );
-                            bpCtx.globalAlpha = 1;
+            lockPiece() {
+                if (!this.currentPiece) return;
+
+                const placedPiece = this.currentPiece;
+
+                // First lock the piece in place like standard Tetris
+                for (let row = 0; row < placedPiece.pattern.length; row++) {
+                    for (let col = 0; col < placedPiece.pattern[row].length; col++) {
+                        if (placedPiece.pattern[row][col] === 1) {
+                            const boardX = placedPiece.x + col;
+                            const boardY = placedPiece.y + row;
+                            
+                            if (boardY >= 0 && boardY < GAME_CONFIG.ROWS && 
+                                boardX >= 0 && boardX < GAME_CONFIG.COLS) {
+                                this.board[boardY][boardX] = {
+                                    color: placedPiece.color,
+                                    layerIndex: placedPiece.layerIndex
+                                };
+                            }
                         }
-                    });
+                    }
+                }
+
+                const stats = this.getLayerStats(this.currentLayerIndex);
+                this.lastPlacementStats = stats;
+                this.debugLog(`Lock stats → expected=${stats.expected}, matching=${stats.matching}, extra=${stats.extra}`);
+                this.updateDebugInfo();
+
+                // Clear current piece before deciding next state
+                this.currentPiece = null;
+
+                if (stats.matching !== stats.expected || stats.extra > 0) {
+                    this.triggerShortCircuit(stats);
+                    return;
+                }
+
+                const perfectOrientation = (placedPiece.rotation % 360) === 0;
+                const isPerfect = stats.extra === 0 && stats.matching === stats.expected && perfectOrientation;
+
+                if (isPerfect) {
+                    this.score += GAME_CONFIG.SCORE_BONUS_PERFECT;
+                    this.perfectPlacements++;
+                    this.showBonus('✨ PERFECT! +' + GAME_CONFIG.SCORE_BONUS_PERFECT);
+                } else {
+                    this.score += GAME_CONFIG.SCORE_BONUS_NORMAL;
+                }
+                
+                this.currentLayerIndex++;
+                this.updateProgress();
+                this.updateLayerInfo();
+                this.updateScore();
+                this.updateDeviceBlueprint();
+                
+                // Spawn next piece or complete device
+                if (this.currentLayerIndex >= DEVICES[this.currentDevice].layers.length) {
+                    this.completeDevice();
+                } else {
+                    this.spawnPiece();
+                }
+            }
+            
+            getLayerStats(layerIndex) {
+                let expected = 0;
+                let matching = 0;
+                let extra = 0;
+
+                for (let y = 0; y < GAME_CONFIG.ROWS; y++) {
+                    for (let x = 0; x < GAME_CONFIG.COLS; x++) {
+                        const target = this.targetPattern[y][x];
+                        const board = this.board[y][x];
+
+                        if (target && target.layerIndex === layerIndex) {
+                            expected++;
+                            if (board && board.layerIndex === layerIndex) {
+                                matching++;
+                            }
+                        } else if (board && board.layerIndex === layerIndex) {
+                            extra++;
+                        }
+                    }
+                }
+
+                return { expected, matching, extra };
+            }
+            
+            validatePlacement() {
+                if (!this.currentPiece) return false;
+
+                const layerIndex = this.currentPiece.layerIndex;
+                const stats = { expected: 0, matching: 0, extra: 0 };
+
+                // Count expected cells for this layer from the target pattern
+                for (let y = 0; y < GAME_CONFIG.ROWS; y++) {
+                    for (let x = 0; x < GAME_CONFIG.COLS; x++) {
+                        const target = this.targetPattern[y][x];
+                        if (target && target.layerIndex === layerIndex) {
+                            stats.expected++;
+                        }
+                    }
+                }
+
+                // Evaluate current piece position against target pattern
+                for (let row = 0; row < this.currentPiece.pattern.length; row++) {
+                    for (let col = 0; col < this.currentPiece.pattern[row].length; col++) {
+                        if (this.currentPiece.pattern[row][col] !== 1) continue;
+
+                        const boardX = this.currentPiece.x + col;
+                        const boardY = this.currentPiece.y + row;
+
+                        if (boardY < 0 || boardY >= GAME_CONFIG.ROWS || boardX < 0 || boardX >= GAME_CONFIG.COLS) {
+                            return false;
+                        }
+
+                        const target = this.targetPattern[boardY][boardX];
+                        const occupied = this.board[boardY][boardX];
+
+                        if (occupied && occupied.layerIndex !== layerIndex) {
+                            stats.extra++;
+                        } else if (target && target.layerIndex === layerIndex) {
+                            stats.matching++;
+                        } else {
+                            stats.extra++;
+                        }
+                    }
+                }
+
+                this.debugLog(`Preview stats → expected=${stats.expected}, matching=${stats.matching}, extra=${stats.extra}`);
+
+                return stats.matching === stats.expected && stats.extra === 0;
+            }
+            
+            checkPerfectAlignment() {
+                // For now, just check if the piece matches the target pattern cells exactly
+                const matchesTarget = this.validatePlacement();
+                // And check if it's not rotated
+                const notRotated = (this.currentPiece.rotation % 360) === 0;
+                return matchesTarget && notRotated;
+            }
+            
+            triggerShortCircuit(stats) {
+                this.canvas.classList.add('short-circuit');
+                document.getElementById('failure-popup').classList.add('active');
+                
+                const details = document.getElementById('failure-details');
+                if (details && stats) {
+                    details.textContent = `Expected ${stats.expected}, matched ${stats.matching}, extra ${stats.extra}.`;
+                } else if (details) {
+                    details.textContent = '';
+                }
+                
+                // Pause game during popup
+                this.isPaused = true;
+                
+                // Don't auto-reset, wait for user to click
+            }
+            
+            closeFailurePopup() {
+                document.getElementById('failure-popup').classList.remove('active');
+                this.canvas.classList.remove('short-circuit');
+                
+                const details = document.getElementById('failure-details');
+                if (details) {
+                    details.textContent = '';
+                }
+                this.lastPlacementStats = null;
+                this.updateDebugInfo();
+                
+                // Reset the chip area
+                this.clearChipArea();
+                
+                // Reset to first layer
+                this.currentLayerIndex = 0;
+                this.updateProgress();
+                this.updateLayerInfo();
+                this.updateDeviceBlueprint();
+                
+                // Unpause and spawn new piece
+                this.isPaused = false;
+                this.spawnPiece();
+            }
+            
+            clearChipArea() {
+                // Clear board from target start position downwards
+                const startY = this.targetStartY !== undefined ? this.targetStartY : 0;
+                for (let y = startY; y < GAME_CONFIG.ROWS; y++) {
+                    for (let x = 0; x < GAME_CONFIG.COLS; x++) {
+                        this.board[y][x] = null;
+                    }
+                }
+            }
+            
+            completeDevice() {
+                this.devicesBuilt++;
+                this.score += GAME_CONFIG.SCORE_BONUS_CHIP;
+                
+                // Show success message
+                const messages = SUCCESS_MESSAGES[this.currentDevice];
+                const message = messages[Math.floor(Math.random() * messages.length)];
+                document.getElementById('success-message').textContent = message;
+                document.getElementById('success-popup').classList.add('active');
+                
+                this.updateScore();
+            }
+            
+            closeSuccessPopup() {
+                document.getElementById('success-popup').classList.remove('active');
+                
+                // Clear and restart
+                this.clearChipArea();
+                this.currentLayerIndex = 0;
+                this.lastPlacementStats = null;
+                this.updateDebugInfo();
+                
+                // Rebuild target pattern (could be at different position)
+                this.buildTargetPattern();
+                
+                this.updateProgress();
+                this.updateLayerInfo();
+                this.updateDeviceBlueprint();
+                this.spawnPiece();
+            }
+            
+            gameOver() {
+                this.isPaused = true;
+                this.showBonus('Game Over! Score: ' + this.score);
+                setTimeout(() => this.restart(), 3000);
+            }
+            
+            restart() {
+                this.score = 0;
+                this.devicesBuilt = 0;
+                this.perfectPlacements = 0;
+                this.updateScore();
+                this.init();
+            }
+            
+            selectDevice(deviceType) {
+                if (deviceType === this.currentDevice) return;
+                if (this.currentLayerIndex > 0) return; // Don't switch mid-build
+                
+                this.currentDevice = deviceType;
+                
+                // Update UI
+                document.querySelectorAll('.device-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.device === deviceType) {
+                        btn.classList.add('active');
+                    }
                 });
-                yOffset += layer.pattern.length * scale;
-            });
+                
+                this.init();
+            }
             
-            // Update layer list
-            const layerList = document.getElementById('layer-list');
-            layerList.innerHTML = device.layers.map((layer, index) => `
-                <div class="layer-item ${index === currentLayerIndex ? 'active' : ''} ${index < currentLayerIndex ? 'completed' : ''}">
-                    <div class="layer-indicator"></div>
-                    <span>${index + 1}. ${layer.name}</span>
-                </div>
-            `).join('');
-        }
-        
-        function updateLayerInfo() {
-            const device = DEVICES[currentDevice];
-            const layer = device.layers[currentLayerIndex];
+            // UI Updates
+            updateScore() {
+                document.getElementById('score').textContent = this.score.toLocaleString();
+                document.getElementById('devices').textContent = this.devicesBuilt;
+                document.getElementById('perfect').textContent = this.perfectPlacements;
+            }
             
-            document.getElementById('current-layer').textContent = `Layer ${currentLayerIndex + 1}: ${layer.name}`;
-            document.getElementById('layer-description').textContent = layer.description;
-            document.getElementById('layer-fact').textContent = `💡 ${layer.fact}`;
-        }
-        
-        function updateProgress() {
-            const device = DEVICES[currentDevice];
-            const progress = (currentLayerIndex / device.layers.length) * 100;
+            updateProgress() {
+                const device = DEVICES[this.currentDevice];
+                const progress = (this.currentLayerIndex / device.layers.length) * 100;
+                
+                document.getElementById('progress').style.width = progress + '%';
+                document.getElementById('progress-text').textContent = Math.round(progress) + '%';
+            }
             
-            document.getElementById('progress').style.width = progress + '%';
-            document.getElementById('progress-text').textContent = Math.round(progress) + '%';
-        }
-        
-        function lockPiece() {
-            const isPerfect = currentPiece.isAligned();
+            updateLayerInfo() {
+                const device = DEVICES[this.currentDevice];
+                
+                if (this.currentLayerIndex < device.layers.length) {
+                    const layer = device.layers[this.currentLayerIndex];
+                    document.getElementById('current-layer').textContent = 
+                        `Layer ${this.currentLayerIndex + 1}: ${layer.name}`;
+                    document.getElementById('layer-description').textContent = layer.description;
+                    document.getElementById('layer-fact').textContent = `💡 ${layer.fact}`;
+                } else {
+                    document.getElementById('current-layer').textContent = 'Chip Complete!';
+                    document.getElementById('layer-description').textContent = 'Great job building the chip!';
+                    document.getElementById('layer-fact').textContent = '💡 Ready for the next one!';
+                }
+            }
             
-            // Lock piece to board
-            for (let row = 0; row < currentPiece.pattern.length; row++) {
-                for (let col = 0; col < currentPiece.pattern[row].length; col++) {
-                    if (currentPiece.pattern[row][col]) {
-                        const boardY = currentPiece.y + row;
-                        const boardX = currentPiece.x + col;
-                        if (boardY >= 0 && boardY < ROWS && boardX >= 0 && boardX < COLS) {
-                            board[boardY][boardX] = currentPiece.color;
+            updateDeviceBlueprint() {
+                const device = DEVICES[this.currentDevice];
+                
+                // Clear canvas
+                this.bpCtx.fillStyle = '#0a0a0a';
+                this.bpCtx.fillRect(0, 0, this.blueprintCanvas.width, this.blueprintCanvas.height);
+                
+                // Update explanation
+                document.getElementById('blueprint-explanation').textContent = device.blueprintExplanation;
+                
+                // Calculate dimensions
+                let totalHeight = 0;
+                device.layers.forEach(layer => {
+                    totalHeight += layer.pattern.length;
+                });
+
+                const maxWidth = device.layers.reduce((widest, layer) => 
+                    Math.max(widest, layer.pattern[0].length), 0
+                );
+                
+                const scale = Math.min(25, (this.blueprintCanvas.height - 40) / totalHeight);
+                const xOffset = (this.blueprintCanvas.width - maxWidth * scale) / 2;
+                const yStart = (this.blueprintCanvas.height - totalHeight * scale) / 2;
+                
+                // Draw layers from bottom up to match the game board
+                let yOffset = yStart + totalHeight * scale;
+                for (let i = 0; i < device.layers.length; i++) {
+                    const layer = device.layers[i];
+                    const layerHeight = layer.pattern.length * scale;
+                    yOffset -= layerHeight;
+                    const layerWidth = layer.pattern[0].length;
+                    const layerXOffset = xOffset + Math.floor((maxWidth - layerWidth) / 2) * scale;
+                    
+                    const opacity = i <= this.currentLayerIndex ? 1 : 0.3;
+                    this.bpCtx.globalAlpha = opacity;
+                    
+                    layer.pattern.forEach((row, rowIndex) => {
+                        row.forEach((cell, colIndex) => {
+                            if (cell === 1) {
+                                this.drawBlock(
+                                    layerXOffset + colIndex * scale,
+                                    yOffset + rowIndex * scale,
+                                    scale - 1,
+                                    layer.color,
+                                    this.bpCtx
+                                );
+                            }
+                        });
+                    });
+                    
+                    if (i === this.currentLayerIndex) {
+                        this.bpCtx.globalAlpha = 1;
+                        this.bpCtx.strokeStyle = '#667eea';
+                        this.bpCtx.lineWidth = 2;
+                        this.bpCtx.setLineDash([5, 5]);
+                        this.bpCtx.strokeRect(
+                            layerXOffset - 5,
+                            yOffset - 5,
+                            layerWidth * scale + 10,
+                            layer.pattern.length * scale + 10
+                        );
+                        this.bpCtx.setLineDash([]);
+                    }
+                }
+                
+                this.bpCtx.globalAlpha = 1;
+                
+                // Update layer list
+                const layerList = document.getElementById('layer-list');
+                layerList.innerHTML = device.layers.map((layer, index) => `
+                    <div class="layer-item ${index === this.currentLayerIndex ? 'active' : ''} 
+                                           ${index < this.currentLayerIndex ? 'completed' : ''}">
+                        <div class="layer-indicator"></div>
+                        <span>${index + 1}. ${layer.name}</span>
+                    </div>
+                `).join('');
+            }
+            
+            showBonus(text) {
+                const indicator = document.getElementById('bonus-indicator');
+                indicator.textContent = text;
+                indicator.classList.remove('bonus-active');
+                void indicator.offsetWidth; // Force reflow
+                indicator.classList.add('bonus-active');
+            }
+            
+            showTutorial() {
+                document.getElementById('tutorial-popup').classList.add('active');
+                this.isPaused = true;
+            }
+            
+            closeTutorial() {
+                document.getElementById('tutorial-popup').classList.remove('active');
+                this.isPaused = false;
+            }
+            
+            // Drawing methods
+            draw() {
+                // Clear canvas
+                this.ctx.fillStyle = '#0a0a0a';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Draw grid
+                this.ctx.strokeStyle = 'rgba(102, 126, 234, 0.03)';
+                this.ctx.lineWidth = 1;
+                for (let i = 0; i <= GAME_CONFIG.COLS; i++) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(i * GAME_CONFIG.BLOCK_SIZE, 0);
+                    this.ctx.lineTo(i * GAME_CONFIG.BLOCK_SIZE, this.canvas.height);
+                    this.ctx.stroke();
+                }
+                for (let i = 0; i <= GAME_CONFIG.ROWS; i++) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(0, i * GAME_CONFIG.BLOCK_SIZE);
+                    this.ctx.lineTo(this.canvas.width, i * GAME_CONFIG.BLOCK_SIZE);
+                    this.ctx.stroke();
+                }
+                
+                // Draw target guide (ghost pieces)
+                if (!this.isPaused && this.currentPiece) {
+                    for (let y = 0; y < GAME_CONFIG.ROWS; y++) {
+                        for (let x = 0; x < GAME_CONFIG.COLS; x++) {
+                            if (this.targetPattern[y][x] && 
+                                this.targetPattern[y][x].layerIndex === this.currentLayerIndex &&
+                                !this.board[y][x]) {
+                                
+                                this.ctx.fillStyle = 'rgba(102, 126, 234, 0.15)';
+                                this.ctx.fillRect(
+                                    x * GAME_CONFIG.BLOCK_SIZE,
+                                    y * GAME_CONFIG.BLOCK_SIZE,
+                                    GAME_CONFIG.BLOCK_SIZE,
+                                    GAME_CONFIG.BLOCK_SIZE
+                                );
+                                
+                                this.ctx.strokeStyle = 'rgba(102, 126, 234, 0.3)';
+                                this.ctx.setLineDash([5, 5]);
+                                this.ctx.strokeRect(
+                                    x * GAME_CONFIG.BLOCK_SIZE + 1,
+                                    y * GAME_CONFIG.BLOCK_SIZE + 1,
+                                    GAME_CONFIG.BLOCK_SIZE - 2,
+                                    GAME_CONFIG.BLOCK_SIZE - 2
+                                );
+                                this.ctx.setLineDash([]);
+                            }
                         }
+                    }
+                }
+                
+                // Draw board
+                for (let y = 0; y < GAME_CONFIG.ROWS; y++) {
+                    for (let x = 0; x < GAME_CONFIG.COLS; x++) {
+                        if (this.board[y][x]) {
+                            this.drawBlock(
+                                x * GAME_CONFIG.BLOCK_SIZE,
+                                y * GAME_CONFIG.BLOCK_SIZE,
+                                GAME_CONFIG.BLOCK_SIZE,
+                                this.board[y][x].color,
+                                this.ctx
+                            );
+                        }
+                    }
+                }
+                
+                // Draw current piece
+                if (this.currentPiece && !this.isPaused) {
+                    const isPerfect = this.checkPerfectAlignment();
+                    
+                    for (let row = 0; row < this.currentPiece.pattern.length; row++) {
+                        for (let col = 0; col < this.currentPiece.pattern[row].length; col++) {
+                            if (this.currentPiece.pattern[row][col] === 1) {
+                                this.drawBlock(
+                                    (this.currentPiece.x + col) * GAME_CONFIG.BLOCK_SIZE,
+                                    (this.currentPiece.y + row) * GAME_CONFIG.BLOCK_SIZE,
+                                    GAME_CONFIG.BLOCK_SIZE,
+                                    this.currentPiece.color,
+                                    this.ctx
+                                );
+                            }
+                        }
+                    }
+                    
+                    // Perfect alignment glow
+                    if (isPerfect) {
+                        this.ctx.strokeStyle = '#34C759';
+                        this.ctx.lineWidth = 3;
+                        this.ctx.shadowColor = '#34C759';
+                        this.ctx.shadowBlur = 10;
+                        
+                        const bounds = this.getPieceBounds(this.currentPiece);
+                        this.ctx.strokeRect(
+                            this.currentPiece.x * GAME_CONFIG.BLOCK_SIZE,
+                            this.currentPiece.y * GAME_CONFIG.BLOCK_SIZE,
+                            bounds.width * GAME_CONFIG.BLOCK_SIZE,
+                            bounds.height * GAME_CONFIG.BLOCK_SIZE
+                        );
+                        this.ctx.shadowBlur = 0;
+                    }
+                }
+                
+                // Pause overlay
+                if (this.isPaused) {
+                    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                    this.ctx.fillStyle = '#ffffff';
+                    this.ctx.font = 'bold 24px sans-serif';
+                    this.ctx.textAlign = 'center';
+                    this.ctx.fillText('PAUSED', this.canvas.width / 2, this.canvas.height / 2);
+                }
+            }
+            
+            drawBlock(x, y, size, color, context) {
+                const padding = 1;
+                
+                // Main block with gradient
+                const gradient = context.createLinearGradient(x, y, x + size, y + size);
+                gradient.addColorStop(0, color);
+                gradient.addColorStop(1, this.adjustColor(color, -20));
+                context.fillStyle = gradient;
+                context.fillRect(x + padding, y + padding, size - padding * 2, size - padding * 2);
+                
+                // Highlight
+                context.fillStyle = this.adjustColor(color, 40);
+                context.fillRect(x + padding, y + padding, size - padding * 2, 2);
+                context.fillRect(x + padding, y + padding, 2, size - padding * 2);
+            }
+            
+            adjustColor(color, amount) {
+                const num = parseInt(color.replace("#", ""), 16);
+                const r = Math.min(255, Math.max(0, (num >> 16) + amount));
+                const g = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + amount));
+                const b = Math.min(255, Math.max(0, (num & 0x0000FF) + amount));
+                return "#" + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+            }
+            
+            getPieceBounds(piece) {
+                let width = 0, height = piece.pattern.length;
+                for (let row of piece.pattern) {
+                    width = Math.max(width, row.length);
+                }
+                return { width, height };
+            }
+            
+            // Input handling
+            handleKeyPress(e) {
+                if (!this.currentPiece) return;
+                
+                switch(e.key.toLowerCase()) {
+                    case 'arrowleft':
+                        this.movePiece(-1);
+                        break;
+                    case 'arrowright':
+                        this.movePiece(1);
+                        break;
+                    case 'arrowup':
+                    case 'z':
+                        this.rotatePiece();
+                        break;
+                    case 'arrowdown':
+                        if (this.dropPiece()) {
+                            this.score++;
+                            this.updateScore();
+                        }
+                        break;
+                    case ' ':
+                        e.preventDefault();
+                        this.hardDrop();
+                        break;
+                    case 'p':
+                        this.isPaused = !this.isPaused;
+                        break;
+                }
+            }
+            
+            // Game loop
+            gameLoop(time = 0) {
+                if (!this.isPaused) {
+                    const deltaTime = time - this.lastTime;
+                    this.lastTime = time;
+                    
+                    this.dropCounter += deltaTime;
+                    const dropSpeed = Math.max(
+                        GAME_CONFIG.DROP_SPEED_MIN,
+                        GAME_CONFIG.DROP_SPEED_BASE - Math.floor(this.score / 1000) * 50
+                    );
+                    
+                    if (this.dropCounter > dropSpeed) {
+                        this.dropPiece();
+                    }
+                    
+                    this.draw();
+                }
+                
+                requestAnimationFrame((t) => this.gameLoop(t));
+            }
+            
+            // Debug methods
+            toggleDebug() {
+                this.debugMode = !this.debugMode;
+                document.getElementById('debug-panel').classList.toggle('active');
+                
+                if (this.debugMode) {
+                    this.updateDebugInfo();
+                }
+            }
+            
+            debugLog(message) {
+                if (this.debugMode) {
+                    console.log('[DEBUG]', message);
+                    const debugInfo = document.getElementById('debug-info');
+                    debugInfo.innerHTML = message + '<br>' + debugInfo.innerHTML;
+                    if (debugInfo.children.length > 10) {
+                        debugInfo.innerHTML = debugInfo.innerHTML.split('<br>').slice(0, 10).join('<br>');
                     }
                 }
             }
             
-            // Scoring
-            if (isPerfect) {
-                score += 500;
-                perfectPlacements++;
-                showBonus('PERFECT! +500');
-            } else {
-                score += 100;
-            }
-            
-            // Next layer
-            currentLayerIndex++;
-            
-            if (currentLayerIndex >= DEVICES[currentDevice].layers.length) {
-                completeDevice();
-            } else {
-                updateProgress();
-                updateLayerInfo();
-                spawnPiece();
-            }
-            
-            updateScore();
-            updateDeviceBlueprint();
-        }
-        
-        function completeDevice() {
-            devicesBuilt++;
-            score += 2000;
-            showBonus(`${DEVICES[currentDevice].icon} CHIP COMPLETE!`);
-            
-            // Clear some rows
-            for (let i = 0; i < 8; i++) {
-                board.pop();
-                board.unshift(Array(COLS).fill(0));
-            }
-            
-            // Reset
-            currentLayerIndex = 0;
-            const device = DEVICES[currentDevice];
-            deviceStartX = Math.floor(Math.random() * (COLS - device.width));
-            
-            updateProgress();
-            updateLayerInfo();
-            updateScore();
-            spawnPiece();
-        }
-        
-        function showBonus(text) {
-            const indicator = document.getElementById('bonus-indicator');
-            indicator.textContent = text;
-            indicator.classList.remove('bonus-active');
-            void indicator.offsetWidth; // Force reflow
-            indicator.classList.add('bonus-active');
-        }
-        
-        function spawnPiece() {
-            currentPiece = new Piece();
-            if (currentPiece.collides()) {
-                gameOver();
-            }
-        }
-        
-        function gameOver() {
-            isPaused = true;
-            setTimeout(() => {
-                showBonus(`Game Over! Score: ${score}`);
-                setTimeout(restartGame, 3000);
-            }, 100);
-        }
-        
-        function drop() {
-            currentPiece.y++;
-            if (currentPiece.collides()) {
-                currentPiece.y--;
-                lockPiece();
-            }
-            dropCounter = 0;
-        }
-        
-        function movePiece(dir) {
-            currentPiece.x += dir;
-            if (currentPiece.collides()) {
-                currentPiece.x -= dir;
-            }
-        }
-        
-        function hardDrop() {
-            while (!currentPiece.collides()) {
-                currentPiece.y++;
-            }
-            currentPiece.y--;
-            lockPiece();
-        }
-        
-        function updateScore() {
-            document.getElementById('score').textContent = score.toLocaleString();
-            document.getElementById('devices').textContent = devicesBuilt;
-            document.getElementById('perfect').textContent = perfectPlacements;
-        }
-        
-        function selectDevice(device) {
-            if (device === currentDevice) return;
-            
-            currentDevice = device;
-            currentLayerIndex = 0;
-            
-            // Update UI
-            document.querySelectorAll('.device-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Reset game
-            const dev = DEVICES[device];
-            deviceStartX = Math.floor((COLS - dev.width) / 2);
-            let totalHeight = 0;
-            dev.layers.forEach(layer => totalHeight += layer.pattern.length);
-            deviceStartY = ROWS - totalHeight - 2;
-            
-            initBoard();
-            updateProgress();
-            spawnPiece();
-        }
-        
-        function restartGame() {
-            initBoard();
-            score = 0;
-            devicesBuilt = 0;
-            perfectPlacements = 0;
-            isPaused = false;
-            currentLayerIndex = 0;
-            updateScore();
-            updateProgress();
-            spawnPiece();
-        }
-        
-        function showTutorial() {
-            tutorialStep = 0;
-            document.getElementById('tutorial-overlay').style.display = 'flex';
-            updateTutorial();
-        }
-        
-        function updateTutorial() {
-            const step = TUTORIAL_STEPS[tutorialStep];
-            document.getElementById('tutorial-title').textContent = step.title;
-            document.getElementById('tutorial-text').textContent = step.text;
-        }
-        
-        function nextTutorial() {
-            tutorialStep++;
-            if (tutorialStep >= TUTORIAL_STEPS.length) {
-                document.getElementById('tutorial-overlay').style.display = 'none';
-            } else {
-                updateTutorial();
-            }
-        }
-        
-        function gameLoop(time = 0) {
-            if (!isPaused) {
-                const deltaTime = time - lastTime;
-                lastTime = time;
+            updateDebugInfo() {
+                if (!this.debugMode) return;
                 
-                dropCounter += deltaTime;
-                if (dropCounter > 800) {
-                    drop();
+                const info = [
+                    `Device: ${this.currentDevice}`,
+                    `Layer: ${this.currentLayerIndex}`,
+                    `Score: ${this.score}`,
+                    `Piece: ${this.currentPiece ? `(${this.currentPiece.x}, ${this.currentPiece.y})` : 'none'}`,
+                    `Target: (${this.targetStartX}, ${this.targetStartY})`
+                ];
+
+                if (this.lastPlacementStats) {
+                    const { expected, matching, extra } = this.lastPlacementStats;
+                    info.push(`Stats: exp=${expected}, match=${matching}, extra=${extra}`);
                 }
                 
-                draw();
+                document.getElementById('debug-info').innerHTML = info.join('<br>');
             }
-            
-            requestAnimationFrame(gameLoop);
         }
         
-        // Keyboard controls
-        document.addEventListener('keydown', (e) => {
-            if (isPaused && e.key !== 'p' && e.key !== 'P') return;
-            
-            switch(e.key.toLowerCase()) {
-                case 'arrowleft':
-                    movePiece(-1);
-                    break;
-                case 'arrowright':
-                    movePiece(1);
-                    break;
-                case 'arrowdown':
-                    drop();
-                    break;
-                case ' ':
-                    e.preventDefault();
-                    hardDrop();
-                    break;
-                case 'p':
-                    isPaused = !isPaused;
-                    break;
-            }
+        // Initialize game when page loads
+        let game;
+        window.addEventListener('DOMContentLoaded', () => {
+            game = new ChipFactoryGame();
         });
-        
-        // Initialize game
-        initBoard();
-        spawnPiece();
-        gameLoop();
     </script>
 </body>
 </html>
