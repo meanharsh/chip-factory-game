@@ -37,12 +37,15 @@
         
         body {
             font-family: 'IBM Plex Mono', 'Courier New', monospace;
+            font-size: 18px;
+            line-height: 1.6;
             background: radial-gradient(circle at 20% 20%, rgba(0, 240, 255, 0.12), transparent 35%),
                         radial-gradient(circle at 80% 0%, rgba(255, 61, 129, 0.18), transparent 40%),
                         #040510;
             color: var(--text-bright);
-            overflow: hidden;
-            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -60,42 +63,54 @@
         }
         
         #main-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: minmax(280px, 1fr) minmax(320px, 1fr) minmax(280px, 1fr);
             gap: 24px;
-            align-items: flex-start;
+            align-items: stretch;
             padding: 20px;
             max-width: 1380px;
             width: 100%;
-            height: calc(100vh - 40px);
-            max-height: 900px;
             background: rgba(4, 6, 18, 0.65);
             border: 2px solid var(--panel-border-muted);
             box-shadow: 0 0 40px rgba(0, 240, 255, 0.12);
             backdrop-filter: blur(6px);
+            margin: 20px;
+            box-sizing: border-box;
+            min-height: calc(100vh - 80px);
         }
         
         /* Left Panel - Game */
         #game-section {
-            flex: 0 0 auto;
+            flex: 1 1 340px;
             display: flex;
             flex-direction: column;
             gap: 16px;
-            padding: 16px;
+            padding: 20px;
             background: var(--panel-bg);
             border: 2px solid var(--panel-border);
             box-shadow: 0 0 24px rgba(0, 240, 255, 0.18);
+            width: 100%;
+            align-items: stretch;
+            height: 100%;
         }
         
         #game-header {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 24px;
+        }
+
+        .game-top {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            width: 100%;
         }
         
         h1 {
-            font-size: 22px;
+            font-size: 28px;
             font-weight: 600;
-            letter-spacing: 0.6px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             color: var(--accent);
         }
@@ -106,7 +121,7 @@
             color: var(--accent);
             padding: 8px 18px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 14px;
             letter-spacing: 0.8px;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease;
@@ -126,33 +141,54 @@
             background: radial-gradient(circle at top, rgba(0, 240, 255, 0.06), rgba(4, 4, 20, 0.98));
             border: 3px solid var(--panel-border);
             image-rendering: pixelated;
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            aspect-ratio: 1 / 2;
+            margin: 0 auto;
+        }
+
+        .game-play {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
         }
         
         #score-bar {
             display: flex;
-            gap: 24px;
-            padding: 14px 18px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 16px 24px;
             background: rgba(8, 10, 28, 0.9);
-            border-radius: 6px;
+            border-radius: 10px;
             border: 2px solid var(--panel-border);
             box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.12);
+            min-width: 260px;
+            width: 100%;
+            flex: 0 0 auto;
         }
         
         .score-item {
             display: flex;
             flex-direction: column;
             gap: 4px;
+            min-width: 70px;
+            text-align: center;
+            flex: 1;
         }
         
         .score-label {
-            font-size: 11px;
+            font-size: 16px;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
         .score-value {
-            font-size: 24px;
+            font-size: 32px;
             font-weight: 700;
             font-variant-numeric: tabular-nums;
             color: var(--accent);
@@ -161,15 +197,16 @@
         
         /* Middle Panel - Info */
         #info-section {
-            flex: 1;
+            flex: 1 1 360px;
             display: flex;
             flex-direction: column;
             gap: 18px;
             max-width: 380px;
-            padding: 16px;
+            padding: 20px;
             background: var(--panel-bg);
             border: 2px solid var(--panel-border);
             box-shadow: 0 0 24px rgba(255, 61, 129, 0.15);
+            height: 100%;
         }
         
         .device-selector {
@@ -186,11 +223,11 @@
             background: transparent;
             border: none;
             color: var(--text-muted);
-            padding: 14px 8px;
+            padding: 16px 10px;
             border-radius: 4px;
             cursor: pointer;
             transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 600;
             letter-spacing: 0.8px;
             text-transform: uppercase;
@@ -224,14 +261,14 @@
         }
         
         .progress-title {
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 600;
             color: var(--text-muted);
             text-transform: uppercase;
         }
         
         .progress-percentage {
-            font-size: 14px;
+            font-size: 17px;
             font-weight: 700;
             color: var(--accent);
         }
@@ -260,7 +297,7 @@
         }
         
         .layer-current {
-            font-size: 15px;
+            font-size: 17px;
             font-weight: 700;
             margin-bottom: 10px;
             color: var(--accent);
@@ -269,14 +306,14 @@
         }
         
         .layer-description {
-            font-size: 13px;
+            font-size: 15px;
             line-height: 1.5;
             color: var(--text-bright);
             margin-bottom: 14px;
         }
         
         .layer-fact {
-            font-size: 13px;
+            font-size: 15px;
             line-height: 1.5;
             color: var(--accent);
             padding: 10px 12px;
@@ -293,7 +330,7 @@
         }
         
         .controls-title {
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 700;
             margin-bottom: 12px;
             color: var(--accent);
@@ -305,7 +342,7 @@
             align-items: center;
             gap: 12px;
             margin: 8px 0;
-            font-size: 13px;
+            font-size: 15px;
             color: var(--text-muted);
         }
         
@@ -314,7 +351,7 @@
             padding: 4px 10px;
             border-radius: 3px;
             border: 1px solid var(--panel-border);
-            font-size: 11px;
+            font-size: 14px;
             min-width: 26px;
             text-align: center;
             text-transform: uppercase;
@@ -323,14 +360,15 @@
         
         /* Right Panel - Blueprint */
         #blueprint-section {
-            flex: 0 0 320px;
+            flex: 1 1 320px;
             display: flex;
             flex-direction: column;
             gap: 18px;
-            padding: 16px;
+            padding: 20px;
             background: var(--panel-bg);
             border: 2px solid var(--panel-border);
             box-shadow: 0 0 24px rgba(0, 240, 255, 0.18);
+            height: 100%;
         }
         
         .blueprint-container {
@@ -339,10 +377,14 @@
             border-radius: 6px;
             padding: 18px;
             box-shadow: inset 0 0 18px rgba(0, 240, 255, 0.12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
         }
-        
+
         .blueprint-title {
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 700;
             margin-bottom: 16px;
             color: var(--accent);
@@ -355,6 +397,11 @@
             background: radial-gradient(circle at top, rgba(0, 240, 255, 0.08), rgba(8, 10, 28, 0.95));
             border: 2px solid var(--panel-border);
             box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.16);
+            width: 100%;
+            max-width: 240px;
+            height: auto;
+            aspect-ratio: 3 / 4;
+            margin: 0 auto;
         }
         
         .blueprint-explanation {
@@ -362,13 +409,21 @@
             padding: 12px;
             background: rgba(0, 240, 255, 0.08);
             border-radius: 4px;
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 15px;
+            line-height: 1.6;
             color: var(--text-bright);
+            flex-shrink: 0;
         }
         
         .layer-list {
             margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            margin-bottom: 0;
+            width: 100%;
+            padding-bottom: 12px;
         }
         
         .layer-item {
@@ -376,9 +431,10 @@
             align-items: center;
             gap: 12px;
             padding: 8px 0;
-            font-size: 13px;
+            font-size: 15px;
             color: var(--text-muted);
             transition: color 0.2s ease, transform 0.2s ease;
+            width: 100%;
         }
         
         .layer-item.active {
@@ -513,10 +569,10 @@
             color: var(--accent);
             padding: 10px 16px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.2s;
-            margin-top: 16px;
+            margin-top: auto;
             width: 100%;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -548,30 +604,64 @@
         .debug-panel.active {
             display: block;
         }
+
+        @media (max-width: 1200px) {
+            #main-container {
+                grid-template-columns: 1fr;
+            }
+            #game-section,
+            #info-section,
+            #blueprint-section {
+                width: 100%;
+                max-width: none;
+                max-height: none;
+                overflow: visible;
+            }
+        }
+
+        @media (max-width: 768px) {
+            canvas {
+                width: clamp(220px, 80vw, 300px);
+            }
+            #main-container {
+                padding: 16px;
+                margin: 12px;
+            }
+            .device-btn {
+                padding: 12px;
+            }
+        .game-top {
+            flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
     <div id="main-container">
         <!-- Left: Game -->
         <div id="game-section">
-            <div id="game-header">
-                <h1>🔬 Chip Factory</h1>
-                <button class="tutorial-btn" onclick="game.showTutorial()">📖 How to Play</button>
+            <div class="game-top">
+                <div id="game-header">
+                    <h1>🔬 Chip Factory</h1>
+                    <button class="tutorial-btn" onclick="game.showTutorial()">📖 How to Play</button>
+                </div>
+                <div id="score-bar">
+                    <div class="score-item">
+                        <div class="score-label">Score</div>
+                        <div class="score-value" id="score">0</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">Chips</div>
+                        <div class="score-value" id="devices">0</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">Perfect</div>
+                        <div class="score-value" id="perfect">0</div>
+                    </div>
+                </div>
             </div>
-            <canvas id="gameCanvas" width="300" height="600"></canvas>
-            <div id="score-bar">
-                <div class="score-item">
-                    <div class="score-label">Score</div>
-                    <div class="score-value" id="score">0</div>
-                </div>
-                <div class="score-item">
-                    <div class="score-label">Chips</div>
-                    <div class="score-value" id="devices">0</div>
-                </div>
-                <div class="score-item">
-                    <div class="score-label">Perfect</div>
-                    <div class="score-value" id="perfect">0</div>
-                </div>
+            <div class="game-play">
+                <canvas id="gameCanvas" width="240" height="480"></canvas>
             </div>
         </div>
         
@@ -636,7 +726,7 @@
         <div id="blueprint-section">
             <div class="blueprint-container">
                 <div class="blueprint-title">🏗️ BUILD PATTERN</div>
-                <canvas id="blueprint-canvas" width="280" height="300"></canvas>
+                <canvas id="blueprint-canvas" width="240" height="320"></canvas>
                 <div class="blueprint-explanation" id="blueprint-explanation">
                     Match this exact pattern! Wrong placement = short circuit!
                 </div>
@@ -677,7 +767,7 @@
         const GAME_CONFIG = {
             COLS: 10,
             ROWS: 20,
-            BLOCK_SIZE: 30,
+            BLOCK_SIZE: 24,
             DROP_SPEED_BASE: 800,
             DROP_SPEED_MIN: 100,
             SCORE_BONUS_PERFECT: 500,
@@ -708,7 +798,7 @@
             transistor: {
                 name: 'Logic Switch',
                 icon: '⚡',
-                blueprintExplanation: 'Assemble the transistor front-end: wafer, isolation, gate stack, and copper contacts.',
+                blueprintExplanation: 'Assemble the transistor front-end: wafer prep, isolation, gates, spacers, and copper contacts.',
                 layers: [
                     {
                         name: 'Silicon Wafer',
@@ -723,11 +813,10 @@
                         fact: 'One wafer can hold over 5,000 logic chips.'
                     },
                     {
-                        name: 'Isolation Wells',
+                        name: 'Shallow Trench Isolation',
                         color: '#F59E0B',
                         pattern: [
                             [1,1,0,0,0,0,1,1],
-                            [1,0,0,0,0,0,0,1],
                             [1,0,0,0,0,0,0,1],
                             [1,1,0,0,0,0,1,1]
                         ],
@@ -739,11 +828,20 @@
                         color: '#EF4444',
                         pattern: [
                             [0,0,1,1,1,1,0,0],
-                            [0,1,1,1,1,1,1,0],
                             [0,1,1,1,1,1,1,0]
                         ],
-                        description: 'High-k dielectrics and polysilicon control the channel.',
-                        fact: 'Gate oxides are thinner than a strand of DNA.'
+                        description: 'High-k oxide and metal gate form the controllable channel.',
+                        fact: 'FinFET gates wrap around the channel to improve electrostatics.'
+                    },
+                    {
+                        name: 'Spacers & Silicide',
+                        color: '#22C55E',
+                        pattern: [
+                            [0,1,0,1,1,0,1,0],
+                            [1,1,1,0,0,1,1,1]
+                        ],
+                        description: 'Sidewall spacers protect the gate before contacts are formed.',
+                        fact: 'Self-aligned silicide reduces resistance at the source and drain.'
                     },
                     {
                         name: 'Metal Contacts',
@@ -761,7 +859,7 @@
             memory: {
                 name: 'Memory Stack',
                 icon: '💾',
-                blueprintExplanation: 'Build a DRAM cell: substrate, isolation grid, capacitor array, and bond pads.',
+                blueprintExplanation: 'Build a DRAM cell: substrate, isolation, capacitor stack, access device, and bond pads.',
                 layers: [
                     {
                         name: 'Silicon Substrate',
@@ -781,26 +879,34 @@
                         pattern: [
                             [1,0,1,0,1,0,1,0],
                             [1,0,1,0,1,0,1,0],
-                            [1,0,1,0,1,0,1,0],
                             [1,1,1,1,1,1,1,1]
                         ],
                         description: 'Word-line trenches stop cells from sharing charge.',
                         fact: 'Shallow trench isolation lets billions of bits stay independent.'
                     },
                     {
-                        name: 'Capacitor Array',
+                        name: 'Deep Capacitor Trenches',
                         color: '#06B6D4',
                         pattern: [
                             [0,1,1,0,1,1,0,1],
-                            [1,1,1,1,1,1,1,1],
                             [0,1,1,0,1,1,0,1]
                         ],
-                        description: 'Stacked capacitors store the 0s and 1s.',
-                        fact: 'Each DRAM cell holds roughly 30 femtofarads of charge.'
+                        description: 'High-aspect-ratio trenches hold the storage capacitors.',
+                        fact: 'Etched cylinders are later filled with dielectric and polysilicon plates.'
+                    },
+                    {
+                        name: 'Access Transistor',
+                        color: '#F97316',
+                        pattern: [
+                            [0,1,0,1,1,0,1,0],
+                            [1,1,1,1,1,1,1,1]
+                        ],
+                        description: 'FinFET gates connect each capacitor to the bit line.',
+                        fact: 'Each cell uses a single transistor to read or refresh the stored charge.'
                     },
                     {
                         name: 'Bond Pads',
-                        color: '#F97316',
+                        color: '#38BDF8',
                         pattern: [
                             [1,0,0,1,0,0,1,0],
                             [0,1,1,0,1,1,0,1]
@@ -813,7 +919,7 @@
             power: {
                 name: 'Power Manager',
                 icon: '🔋',
-                blueprintExplanation: 'Package a power IC: thick substrate, copper planes, FET array, and solder bumps.',
+                blueprintExplanation: 'Package a power IC: substrate, spreaders, FETs, mesh, and solder bumps.',
                 layers: [
                     {
                         name: 'Power Substrate',
@@ -828,19 +934,18 @@
                         fact: 'Power devices use low-resistance silicon to handle high currents.'
                     },
                     {
-                        name: 'Copper Planes',
+                        name: 'Copper Spreaders',
                         color: '#F59E0B',
                         pattern: [
                             [1,0,0,1,0,0,1,0],
                             [1,0,0,1,0,0,1,0],
-                            [1,1,1,1,1,1,1,1],
-                            [1,0,0,1,0,0,1,0]
+                            [1,1,1,1,1,1,1,1]
                         ],
                         description: 'Wide copper planes distribute battery power evenly.',
                         fact: 'Redistribution layers are electroplated just microns thick.'
                     },
                     {
-                        name: 'Control FET Array',
+                        name: 'Driver FET Array',
                         color: '#7C3AED',
                         pattern: [
                             [1,0,1,0,1,0,1,0],
@@ -849,6 +954,16 @@
                         ],
                         description: 'Synchronous MOSFETs regulate voltage to each rail.',
                         fact: 'Modern PMICs can switch hundreds of thousands of times per second.'
+                    },
+                    {
+                        name: 'Interconnect Mesh',
+                        color: '#38BDF8',
+                        pattern: [
+                            [1,1,0,1,0,1,0,1],
+                            [1,1,1,1,1,1,1,1]
+                        ],
+                        description: 'Thick top metal ties the power stages together.',
+                        fact: 'Multiple metal layers stack to lower resistance for high currents.'
                     },
                     {
                         name: 'Solder Bumps',
@@ -867,8 +982,12 @@
         class ChipFactoryGame {
             constructor() {
                 this.canvas = document.getElementById('gameCanvas');
+                this.canvas.width = GAME_CONFIG.COLS * GAME_CONFIG.BLOCK_SIZE;
+                this.canvas.height = GAME_CONFIG.ROWS * GAME_CONFIG.BLOCK_SIZE;
                 this.ctx = this.canvas.getContext('2d');
                 this.blueprintCanvas = document.getElementById('blueprint-canvas');
+                this.blueprintCanvas.width = 240;
+                this.blueprintCanvas.height = 320;
                 this.bpCtx = this.blueprintCanvas.getContext('2d');
                 
                 this.board = [];
@@ -1420,7 +1539,7 @@
                     Math.max(widest, layer.pattern[0].length), 0
                 );
                 
-                const scale = Math.min(25, (this.blueprintCanvas.height - 40) / totalHeight);
+                const scale = Math.min(20, (this.blueprintCanvas.height - 60) / totalHeight);
                 const xOffset = (this.blueprintCanvas.width - maxWidth * scale) / 2;
                 const yStart = (this.blueprintCanvas.height - totalHeight * scale) / 2;
                 
